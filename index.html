@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🗓️ Lienzo: Plantilla de Líneas de Tiempo (UX)</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="Lienzo interactivo en español para crear líneas de tiempo de usuario en UX. Permite importar/exportar JSON, definir pasos, pensamientos y touchpoints. Backlog inicial vacío.">
   <style>
     @media print { .no-print { display:none!important; } }
   </style>
@@ -16,62 +15,38 @@
       <h1 class="text-2xl md:text-3xl font-bold tracking-tight">🗓️ Plantilla de Líneas de Tiempo UX</h1>
       <div class="flex gap-2 no-print">
         <input id="fileJSON" type="file" accept="application/json,.json" class="hidden" />
-        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold" title="Importa un archivo .json con líneas de tiempo de usuario">Importar JSON</button>
-        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold" title="Exporta todas las líneas actuales a un .json">Exportar JSON</button>
-        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold" title="Elimina todas las líneas de tiempo actuales">Vaciar</button>
-        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold" title="Prepara una vista para imprimir">Imprimir</button>
+        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold">Importar JSON</button>
+        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold">Exportar JSON</button>
+        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold">Vaciar</button>
+        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold">Imprimir</button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6">
+  <main class="max-w-5xl mx-auto px-4 py-6 space-y-6">
     <!-- Formulario -->
-    <section class="lg:col-span-2">
+    <section>
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div class="px-5 py-4 border-b border-slate-200">
           <h2 class="text-xl font-semibold">Crear Línea de Tiempo</h2>
-          <span class="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600" title="Una línea de tiempo UX describe cronológicamente las etapas de interacción del usuario, sus emociones y puntos de contacto.">UX Timeline</span>
         </div>
         <form id="timelineForm" class="p-5 grid md:grid-cols-2 gap-4">
-          <div class="md:col-span-1">
-            <label class="block text-sm font-medium mb-1" for="etapa" title="Momento o fase del recorrido del usuario (ej. Descubrimiento, Uso, Post-servicio)">Etapa</label>
+          <div>
+            <label class="block text-sm font-medium mb-1" for="etapa">Etapa</label>
             <input id="etapa" name="etapa" type="text" required placeholder="Descubrimiento / Uso / Post-servicio" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
           </div>
-          <div class="md:col-span-1">
-            <label class="block text-sm font-medium mb-1" for="actividad" title="Acción concreta del usuario en esta etapa">Actividad</label>
+          <div>
+            <label class="block text-sm font-medium mb-1" for="actividad">Actividad</label>
             <input id="actividad" name="actividad" type="text" required placeholder="Buscar información / Realizar compra" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
           </div>
-
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="pensamientos" title="Pensamientos o reflexiones del usuario en este punto de la experiencia">Pensamientos</label>
-            <textarea id="pensamientos" name="pensamientos" rows="3" placeholder="¿Qué está pensando el usuario?" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
+            <label class="block text-sm font-medium mb-1" for="pensamientos">Pensamientos</label>
+            <textarea id="pensamientos" name="pensamientos" rows="2" placeholder="¿Qué está pensando la persona?" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
           </div>
-
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="emociones" title="Emociones o sentimientos predominantes (positivos o negativos)">Emociones</label>
-            <textarea id="emociones" name="emociones" rows="3" placeholder="Frustración, entusiasmo, duda, confianza..." class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
+            <label class="block text-sm font-medium mb-1" for="emociones">Emociones</label>
+            <textarea id="emociones" name="emociones" rows="2" placeholder="Frustración, entusiasmo, duda..." class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
           </div>
-
-          <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="touchpoints" title="Puntos de contacto: canales, interfaces o interacciones donde ocurre la experiencia">Touchpoints</label>
-            <textarea id="touchpoints" name="touchpoints" rows="3" placeholder="Sitio web, app móvil, call center, redes sociales..." class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4 md:col-span-2">
-            <div>
-              <label class="block text-sm font-medium mb-1" for="estado" title="Estado de validación del registro">Estado</label>
-              <select id="estado" name="estado" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500">
-                <option>Pendiente</option>
-                <option>Validado</option>
-                <option>Descartado</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-1" for="fecha" title="Fecha de referencia del registro">Fecha</label>
-              <input id="fecha" name="fecha" type="date" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
-            </div>
-          </div>
-
           <div class="md:col-span-2 flex flex-wrap gap-3 pt-2 no-print">
             <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Agregar etapa</button>
             <button type="reset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200">Limpiar</button>
@@ -80,28 +55,16 @@
       </div>
     </section>
 
-    <!-- Tips -->
-    <aside class="space-y-6">
+    <!-- Visualizador -->
+    <section>
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-        <h3 class="font-semibold text-lg mb-3">📌 Consejos para líneas de tiempo UX</h3>
-        <ul class="text-sm list-disc list-inside space-y-1">
-          <li>Define fases claras (antes, durante, después).</li>
-          <li>Incluye actividades, pensamientos y emociones reales del usuario.</li>
-          <li>Agrega touchpoints para mapear la multicanalidad.</li>
-          <li>Usa esta herramienta como base para user journeys más complejos.</li>
-        </ul>
+        <h3 class="text-lg font-semibold">👀 Visualizador de Línea de Tiempo</h3>
+        <div id="visualizer" class="mt-4 overflow-x-auto text-sm text-slate-500">Sin elementos para visualizar.</div>
       </div>
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-        <h3 class="font-semibold text-lg mb-3">💾 Persistencia</h3>
-        <p class="text-sm">Las líneas se guardan en tu navegador (localStorage). Puedes <strong>importar/exportar JSON</strong>. Este lienzo inicia con el <em>backlog vacío</em>.</p>
-      </div>
-    </aside>
+    </section>
 
     <!-- Tabla -->
-    <section class="lg:col-span-3 -mt-2">
-      <div id="dropzone" class="no-print mb-3 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition-colors p-4 text-center text-sm text-slate-600">
-        Arrastra y suelta aquí tu archivo <strong>.json</strong> con líneas de tiempo, o usa el botón <em>Importar JSON</em> de arriba.
-      </div>
+    <section>
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
           <h2 class="text-xl font-semibold">Backlog de Líneas de Tiempo</h2>
@@ -116,136 +79,42 @@
                 <th class="px-3 py-2 text-left">Actividad</th>
                 <th class="px-3 py-2 text-left">Pensamientos</th>
                 <th class="px-3 py-2 text-left">Emociones</th>
-                <th class="px-3 py-2 text-left">Touchpoints</th>
-                <th class="px-3 py-2 text-left">Estado</th>
-                <th class="px-3 py-2 text-left">Fecha</th>
                 <th class="px-3 py-2 text-left no-print">Acciones</th>
               </tr>
             </thead>
-            <tbody id="tbody"><!-- Vacío al cargar --></tbody>
+            <tbody id="tbody"></tbody>
           </table>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="max-w-7xl mx-auto px-4 pb-10 text-center text-xs text-slate-500">
-    Hecho con ♥ para prácticas de UX (Líneas de Tiempo de Usuario). Backlog inicial vacío.
-  </footer>
-
   <script>
-    const form = document.getElementById('timelineForm');
-    const tbody = document.getElementById('tbody');
-    const btnJSON = document.getElementById('exportJSON');
-    const btnImport = document.getElementById('importJSON');
-    const inputFile = document.getElementById('fileJSON');
-    const btnClear = document.getElementById('clearAll');
-    const btnPrint = document.getElementById('printBtn');
+    const form=document.getElementById('timelineForm');
+    const tbody=document.getElementById('tbody');
+    const KEY='userTimelines';
+    const VIS=document.getElementById('visualizer');
 
-    const KEY = 'userTimelines';
+    function loadLines(){tbody.innerHTML='';}
+    function nextId(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');return `LT-${String(d.length+1).padStart(3,'0')}`;}
+    function addRow(l){const tr=document.createElement('tr');tr.className='border-b border-slate-200';tr.innerHTML=`<td class='px-3 py-2 font-semibold'>${l.id}</td><td class='px-3 py-2'>${l.etapa}</td><td class='px-3 py-2'>${l.actividad}</td><td class='px-3 py-2'>${l.pensamientos}</td><td class='px-3 py-2'>${l.emociones}</td><td class='px-3 py-2 no-print'><button class='text-rose-700 text-xs' data-id='${l.id}'>Eliminar</button></td>`;tbody.appendChild(tr);} 
+    function save(l){const d=JSON.parse(localStorage.getItem(KEY)||'[]');d.push(l);localStorage.setItem(KEY,JSON.stringify(d));}
+    function removeById(id){const d=JSON.parse(localStorage.getItem(KEY)||'[]').filter(x=>x.id!==id);localStorage.setItem(KEY,JSON.stringify(d));loadFromStorage();}
+    function loadFromStorage(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');tbody.innerHTML='';d.forEach(addRow);} 
 
-    function loadLines(){ tbody.innerHTML = ''; }
+    function renderVisual(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');if(!d.length){VIS.innerHTML='<div class="text-sm text-slate-500">Sin elementos para visualizar.</div>';return;}VIS.innerHTML=`<div class='min-w-max flex gap-4'>${d.map(l=>`<div class='w-64 bg-white border border-slate-200 rounded-xl p-4 shadow-sm'><h4 class='font-semibold'>${l.etapa}</h4><div class='text-sm'><span class='font-medium'>Actividad:</span> ${l.actividad}</div>${l.pensamientos?`<div class='text-xs mt-1'><span class='font-medium'>Pensamientos:</span> ${l.pensamientos}</div>`:''}${l.emociones?`<div class='text-xs mt-1'><span class='font-medium'>Emociones:</span> ${l.emociones}</div>`:''}</div>`).join('')}</div>`;}
 
-    function nextId(){
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
-      return `LT-${String(data.length+1).padStart(3,'0')}`;
-    }
+    form.addEventListener('submit',e=>{e.preventDefault();const l={id:nextId(),etapa:form.etapa.value.trim(),actividad:form.actividad.value.trim(),pensamientos:form.pensamientos.value.trim(),emociones:form.emociones.value.trim()};if(!l.etapa||!l.actividad){alert('Completa etapa y actividad');return;}save(l);addRow(l);renderVisual();form.reset();});
+    tbody.addEventListener('click',e=>{const id=e.target.getAttribute('data-id');if(id&&confirm('¿Eliminar '+id+'?')){removeById(id);renderVisual();}});
 
-    function addRow(line){
-      const tr = document.createElement('tr');
-      tr.className = 'border-b border-slate-200 align-top';
-      tr.innerHTML = `
-        <td class="px-3 py-2 font-semibold">${line.id}</td>
-        <td class="px-3 py-2">${escapeHtml(line.etapa)}</td>
-        <td class="px-3 py-2">${escapeHtml(line.actividad)}</td>
-        <td class="px-3 py-2 whitespace-pre-wrap">${escapeHtml(line.pensamientos||'')}</td>
-        <td class="px-3 py-2 whitespace-pre-wrap">${escapeHtml(line.emociones||'')}</td>
-        <td class="px-3 py-2 whitespace-pre-wrap">${escapeHtml(line.touchpoints||'')}</td>
-        <td class="px-3 py-2">${escapeHtml(line.estado||'')}</td>
-        <td class="px-3 py-2">${escapeHtml(line.fecha||'')}</td>
-        <td class="px-3 py-2 no-print"><button class="text-rose-700 hover:underline text-xs" data-id="${line.id}">Eliminar</button></td>`;
-      tbody.appendChild(tr);
-    }
-
-    function save(line){
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
-      data.push(line);
-      localStorage.setItem(KEY, JSON.stringify(data));
-    }
-
-    function removeById(id){
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]').filter(l => l.id !== id);
-      localStorage.setItem(KEY, JSON.stringify(data));
-      loadFromStorage();
-    }
-
-    function loadFromStorage(){
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
-      tbody.innerHTML = '';
-      data.forEach(addRow);
-    }
-
-    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m])); }
-
-    form.addEventListener('submit', e =>{
-      e.preventDefault();
-      const line = {
-        id: nextId(),
-        etapa: form.etapa.value.trim(),
-        actividad: form.actividad.value.trim(),
-        pensamientos: form.pensamientos.value.trim(),
-        emociones: form.emociones.value.trim(),
-        touchpoints: form.touchpoints.value.trim(),
-        estado: form.estado.value,
-        fecha: form.fecha.value
-      };
-      if(!line.etapa || !line.actividad){ alert('Completa al menos etapa y actividad.'); return; }
-      save(line); addRow(line); form.reset();
-    });
-
-    tbody.addEventListener('click', e=>{
-      const id = e.target.getAttribute('data-id');
-      if(id && confirm(`¿Eliminar ${id}?`)) removeById(id);
-    });
-
-    btnJSON.addEventListener('click', ()=>{
-      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
-      if(!data.length) return alert('No hay líneas para exportar.');
-      const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href=url; a.download='lineas_tiempo.json'; a.click();
-      setTimeout(()=>URL.revokeObjectURL(url),500);
-    });
-
-    btnClear.addEventListener('click', ()=>{
-      if(confirm('¿Vaciar todas las líneas guardadas?')){ localStorage.removeItem(KEY); loadLines(); }
-    });
-
-    btnImport.addEventListener('click', ()=> inputFile.click());
-    inputFile.addEventListener('change', async e=>{
-      const file = e.target.files?.[0]; if(!file) return;
-      try{
-        const arr = JSON.parse(await file.text());
-        if(!Array.isArray(arr)) return alert('El JSON debe ser un arreglo.');
-        arr.forEach(line=>{ save(line); addRow(line); });
-      }catch(err){ alert('Error al leer JSON: '+err.message); }
-      finally{ inputFile.value=''; }
-    });
-
-    const dz=document.getElementById('dropzone');
-    ;['dragenter','dragover'].forEach(evt=>dz.addEventListener(evt,e=>{e.preventDefault();dz.classList.add('ring-2','ring-amber-400');}));
-    ;['dragleave','drop'].forEach(evt=>dz.addEventListener(evt,e=>{e.preventDefault();dz.classList.remove('ring-2','ring-amber-400');}));
-    dz.addEventListener('drop', async e=>{
-      const file=[...(e.dataTransfer?.files||[])].find(f=>/\.json$/i.test(f.name));
-      if(!file) return alert('Suelta un archivo .json válido.');
-      try{
-        const arr=JSON.parse(await file.text());
-        if(!Array.isArray(arr)) return alert('El JSON debe ser un arreglo.');
-        arr.forEach(line=>{ save(line); addRow(line); });
-      }catch(err){ alert('Error al leer JSON: '+err.message); }
-    });
+    document.getElementById('exportJSON').addEventListener('click',()=>{const d=JSON.parse(localStorage.getItem(KEY)||'[]');if(!d.length)return alert('Nada que exportar');const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='lineas_tiempo.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),500);});
+    document.getElementById('clearAll').addEventListener('click',()=>{if(confirm('¿Vaciar todas las líneas?')){localStorage.removeItem(KEY);loadLines();renderVisual();}});
+    document.getElementById('importJSON').addEventListener('click',()=>document.getElementById('fileJSON').click());
+    document.getElementById('fileJSON').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const arr=JSON.parse(await f.text());if(!Array.isArray(arr))return alert('El JSON debe ser un arreglo');arr.forEach(x=>{save(x);addRow(x);});renderVisual();}catch(err){alert('Error: '+err.message);}finally{e.target.value='';}});
+    document.getElementById('printBtn').addEventListener('click',()=>window.print());
 
     loadLines();
+    renderVisual();
   </script>
 </body>
 </html>
