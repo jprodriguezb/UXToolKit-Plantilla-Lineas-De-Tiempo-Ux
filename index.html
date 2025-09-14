@@ -15,41 +15,94 @@
       <h1 class="text-2xl md:text-3xl font-bold tracking-tight">🗓️ Plantilla de Líneas de Tiempo UX</h1>
       <div class="flex gap-2 no-print">
         <input id="fileJSON" type="file" accept="application/json,.json" class="hidden" />
-        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold" title="Importa un archivo JSON con líneas de tiempo previamente guardadas">Importar JSON</button>
-        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold" title="Exporta tus líneas de tiempo como archivo JSON para compartir o respaldar">Exportar JSON</button>
-        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold" title="Vacía todo el backlog almacenado en el navegador">Vaciar</button>
-        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold" title="Imprime o guarda en PDF tu línea de tiempo actual">Imprimir</button>
+        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold" title="Importa un archivo JSON de la línea de tiempo (incluye meta y pasos)">Importar JSON</button>
+        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold" title="Exporta la línea de tiempo completa (meta + pasos)">Exportar JSON</button>
+        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold" title="Vacía la línea de tiempo (meta y pasos)">Vaciar</button>
+        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold" title="Imprime o guarda en PDF tu línea de tiempo">Imprimir</button>
       </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6 grid lg:grid-cols-3 gap-6">
-    <!-- Formulario -->
+    <!-- Meta de la línea de tiempo (título/descripcion: se define una sola vez) -->
+    <section class="lg:col-span-3">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200">
+          <h2 class="text-xl font-semibold">Información general (una sola vez)</h2>
+        </div>
+        <form id="metaForm" class="p-5 grid md:grid-cols-3 gap-4">
+          <div class="md:col-span-1">
+            <label for="titulo" class="block text-sm font-medium mb-1">Título de la línea de tiempo</label>
+            <input id="titulo" name="titulo" type="text" required placeholder="Ej: Onboarding en la app" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div class="md:col-span-2">
+            <label for="descripcion" class="block text-sm font-medium mb-1">Descripción</label>
+            <input id="descripcion" name="descripcion" type="text" placeholder="Breve contexto del proceso o caso de uso" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div class="md:col-span-3 flex flex-wrap gap-3 pt-2 no-print">
+            <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700">Guardar título y descripción</button>
+            <button type="button" id="clearMeta" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200">Limpiar meta</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Formulario de pasos -->
     <section class="lg:col-span-2">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
         <div class="px-5 py-4 border-b border-slate-200">
-          <h2 class="text-xl font-semibold">Crear Línea de Tiempo</h2>
+          <h2 class="text-xl font-semibold">Agregar Evento/Hito</h2>
         </div>
         <form id="timelineForm" class="p-5 grid md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium mb-1" for="etapa" title="Desde UX: etapa o momento del recorrido del usuario (antes, durante, después)">Etapa ℹ️</label>
-            <input id="etapa" name="etapa" type="text" required placeholder="Descubrimiento / Uso / Post-servicio" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium mb-1" for="actividad" title="Desde UX: acción observable realizada por la persona en esa etapa">Actividad ℹ️</label>
-            <input id="actividad" name="actividad" type="text" required placeholder="Buscar información / Realizar compra" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
-          </div>
+          <!-- Evento/Hito central -->
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="pensamientos" title="Desde UX: pensamientos, dudas o decisiones que experimenta la persona">Pensamientos ℹ️</label>
-            <textarea id="pensamientos" name="pensamientos" rows="2" placeholder="¿Qué está pensando la persona?" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
+            <label class="block text-sm font-medium mb-1" for="evento">Evento/Hito</label>
+            <input id="evento" name="evento" type="text" required placeholder="Ej: El usuario completa el registro" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
           </div>
+
+          <!-- Necesidad (select único) -->
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="emociones" title="Desde UX: emociones principales que influyen en la experiencia">Emociones ℹ️</label>
-            <textarea id="emociones" name="emociones" rows="2" placeholder="Frustración, entusiasmo, duda..." class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
+            <label class="block text-sm font-medium mb-1" for="necesidad">Necesidad</label>
+            <select id="necesidad" name="necesidad" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500">
+              <option value="">Selecciona una necesidad…</option>
+              <option>Rapidez / eficiencia ⚡</option>
+              <option>Seguridad / confianza 🔒</option>
+              <option>Soporte / acompañamiento 💬</option>
+              <option>Claridad / simplicidad 📝</option>
+              <option>Accesibilidad / usabilidad 📱</option>
+              <option>Satisfacción / logro ✅</option>
+              <option>Ahorro / costo-beneficio 💰</option>
+              <option>Conectividad / disponibilidad 📶</option>
+              <option>Personalización / adaptación 🎨</option>
+              <option>Control / autonomía ⚙️</option>
+            </select>
           </div>
+
+          <!-- Pensamiento y Emoción (select con descripciones) -->
+          <div>
+            <label class="block text-sm font-medium mb-1" for="pensamiento">Pensamiento 💭</label>
+            <input id="pensamiento" name="pensamiento" type="text" placeholder="¿Qué piensa en este hito?" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1" for="emocion">Emoción</label>
+            <select id="emocion" name="emocion" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500">
+              <option value="">Selecciona una emoción…</option>
+              <option>🙂 Satisfecho / contento</option>
+              <option>😟 Preocupado / inseguro</option>
+              <option>😠 Frustrado / molesto</option>
+              <option>😍 Encantado / muy feliz</option>
+              <option>🤯 Abrumado / confundido</option>
+              <option>😐 Neutral / indiferente</option>
+              <option>😢 Triste / decepcionado</option>
+              <option>😤 Irritado / impaciente</option>
+              <option>😎 Confiado / seguro</option>
+              <option>🤔 Pensativo / evaluando</option>
+            </select>
+          </div>
+
           <div class="md:col-span-2 flex flex-wrap gap-3 pt-2 no-print">
-            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700" title="Agrega la etapa al backlog y al visualizador">Agregar etapa</button>
-            <button type="reset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200" title="Limpia los campos del formulario">Limpiar</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Agregar hito</button>
+            <button type="reset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200">Limpiar</button>
           </div>
         </form>
       </div>
@@ -60,15 +113,15 @@
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
         <h3 class="font-semibold text-lg mb-3">📌 Consejos para Líneas de Tiempo UX</h3>
         <ul class="text-sm list-disc list-inside space-y-1">
-          <li>Representa en orden cronológico las acciones y emociones de la persona.</li>
-          <li>Describe actividades con verbos claros que reflejen la acción del usuario.</li>
-          <li>Incluye pensamientos y emociones reales para detectar fricciones y oportunidades.</li>
-          <li>Recuerda: la línea de tiempo es más simple que un viaje de usuario, concéntrate en lo esencial.</li>
+          <li>Define un <strong>título y descripción</strong> claros: ayudan a enfocar el alcance.</li>
+          <li>Selecciona una <strong>necesidad</strong> principal por hito.</li>
+          <li>Usa <strong>emojis</strong> con descripción para comunicar la emoción.</li>
+          <li>Mantén cada hito en una sola acción visible.</li>
         </ul>
       </div>
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
         <h3 class="font-semibold text-lg mb-3">💾 Guardado</h3>
-        <p class="text-sm">Las líneas se almacenan en tu navegador (<code>localStorage</code>). Puedes importar o exportar JSON para compartirlas.</p>
+        <p class="text-sm">Todo se almacena en tu navegador (<code>localStorage</code>). La exportación incluye meta + pasos.</p>
       </div>
     </aside>
 
@@ -76,27 +129,29 @@
     <section class="lg:col-span-3">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
         <h3 class="text-lg font-semibold">👀 Visualizador de Línea de Tiempo</h3>
-        <div id="visualizer" class="mt-4 overflow-x-auto text-sm text-slate-500">Sin elementos para visualizar.</div>
+        <!-- Título/Descripción globales -->
+        <div id="metaView" class="mt-2"></div>
+        <div id="visualizer" class="mt-4 overflow-x-auto text-sm text-slate-500">Sin pasos para visualizar.</div>
       </div>
     </section>
 
     <!-- Tabla -->
     <section class="lg:col-span-3">
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
-          <h2 class="text-xl font-semibold">Backlog de Líneas de Tiempo</h2>
-          <div class="text-xs text-slate-500">ID autogenerado (LT-001, LT-002...)</div>
+        <div class="px-5 py-4 border-b border-slate-200">
+          <h2 class="text-xl font-semibold">Backlog de Pasos</h2>
+          <div id="metaBacklog" class="text-xs text-slate-600"></div>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm" id="timelineTable">
             <thead class="bg-slate-100">
               <tr>
-                <th class="px-3 py-2 text-left" title="Identificador único de la línea de tiempo">ID ℹ️</th>
-                <th class="px-3 py-2 text-left" title="Etapa o momento del recorrido">Etapa ℹ️</th>
-                <th class="px-3 py-2 text-left" title="Actividad observable del usuario">Actividad ℹ️</th>
-                <th class="px-3 py-2 text-left" title="Pensamientos de la persona en esa etapa">Pensamientos ℹ️</th>
-                <th class="px-3 py-2 text-left" title="Emociones de la persona en esa etapa">Emociones ℹ️</th>
-                <th class="px-3 py-2 text-left no-print" title="Acción para eliminar la entrada si es necesario">Acciones ℹ️</th>
+                <th class="px-3 py-2 text-left">ID ℹ️</th>
+                <th class="px-3 py-2 text-left">Evento/Hito ℹ️</th>
+                <th class="px-3 py-2 text-left">Necesidad ℹ️</th>
+                <th class="px-3 py-2 text-left">💭 Pensamiento</th>
+                <th class="px-3 py-2 text-left">Emoción (con descripción)</th>
+                <th class="px-3 py-2 text-left no-print">Acciones ℹ️</th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
@@ -107,30 +162,198 @@
   </main>
 
   <script>
-    const form=document.getElementById('timelineForm');
-    const tbody=document.getElementById('tbody');
-    const KEY='userTimelines';
-    const VIS=document.getElementById('visualizer');
+    // ===== Claves de almacenamiento =====
+    const KEY_STEPS = 'userTimelines';     // pasos
+    const KEY_META  = 'timelineMeta';      // { titulo, descripcion }
 
-    function loadLines(){tbody.innerHTML='';}
-    function nextId(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');return `LT-${String(d.length+1).padStart(3,'0')}`;}
-    function addRow(l){const tr=document.createElement('tr');tr.className='border-b border-slate-200';tr.innerHTML=`<td class='px-3 py-2 font-semibold'>${l.id}</td><td class='px-3 py-2'>${l.etapa}</td><td class='px-3 py-2'>${l.actividad}</td><td class='px-3 py-2'>${l.pensamientos}</td><td class='px-3 py-2'>${l.emociones}</td><td class='px-3 py-2 no-print'><button class='text-rose-700 text-xs' data-id='${l.id}'>Eliminar</button></td>`;tbody.appendChild(tr);} 
-    function save(l){const d=JSON.parse(localStorage.getItem(KEY)||'[]');d.push(l);localStorage.setItem(KEY,JSON.stringify(d));}
-    function removeById(id){const d=JSON.parse(localStorage.getItem(KEY)||'[]').filter(x=>x.id!==id);localStorage.setItem(KEY,JSON.stringify(d));loadFromStorage();}
-    function loadFromStorage(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');tbody.innerHTML='';d.forEach(addRow);} 
+    // ===== Referencias DOM =====
+    const form      = document.getElementById('timelineForm');
+    const metaForm  = document.getElementById('metaForm');
+    const tbody     = document.getElementById('tbody');
+    const VIS       = document.getElementById('visualizer');
+    const META_VIEW = document.getElementById('metaView');
+    const META_BKLG = document.getElementById('metaBacklog');
 
-    function renderVisual(){const d=JSON.parse(localStorage.getItem(KEY)||'[]');if(!d.length){VIS.innerHTML='<div class="text-sm text-slate-500">Sin elementos para visualizar.</div>';return;}VIS.innerHTML=`<div class='min-w-max flex gap-4'>${d.map(l=>`<div class='w-64 bg-white border border-slate-200 rounded-xl p-4 shadow-sm'><h4 class='font-semibold'>${l.etapa}</h4><div class='text-sm'><span class='font-medium'>Actividad:</span> ${l.actividad}</div>${l.pensamientos?`<div class='text-xs mt-1'><span class='font-medium'>Pensamientos:</span> ${l.pensamientos}</div>`:''}${l.emociones?`<div class='text-xs mt-1'><span class='font-medium'>Emociones:</span> ${l.emociones}</div>`:''}</div>`).join('')}</div>`;}
+    // ===== Utilidades =====
+    function nextId(){
+      const d = JSON.parse(localStorage.getItem(KEY_STEPS) || '[]');
+      return `LT-${String(d.length+1).padStart(3,'0')}`;
+    }
+    function escapeHtml(s){
+      return String(s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m]));
+    }
 
-    form.addEventListener('submit',e=>{e.preventDefault();const l={id:nextId(),etapa:form.etapa.value.trim(),actividad:form.actividad.value.trim(),pensamientos:form.pensamientos.value.trim(),emociones:form.emociones.value.trim()};if(!l.etapa||!l.actividad){alert('Completa etapa y actividad');return;}save(l);addRow(l);renderVisual();form.reset();});
-    tbody.addEventListener('click',e=>{const id=e.target.getAttribute('data-id');if(id&&confirm('¿Eliminar '+id+'?')){removeById(id);renderVisual();}});
+    // ===== Meta (una sola vez) =====
+    function saveMeta(meta){ localStorage.setItem(KEY_META, JSON.stringify(meta)); }
+    function loadMeta(){ return JSON.parse(localStorage.getItem(KEY_META) || 'null'); }
+    function renderMeta(){
+      const meta = loadMeta();
+      if(meta){
+        META_VIEW.innerHTML = `<div class='p-3 rounded-xl bg-slate-50 border border-slate-200'>
+          <div class='text-sm text-slate-500'>Título</div>
+          <h4 class='text-xl font-semibold'>${escapeHtml(meta.titulo)}</h4>
+          ${meta.descripcion?`<p class='text-sm mt-1'>${escapeHtml(meta.descripcion)}</p>`:''}
+        </div>`;
+        META_BKLG.innerHTML = `<span class='inline-flex items-center gap-2 px-2 py-1 rounded-lg bg-slate-100 border'>
+          <span class='text-slate-500'>Título:</span> <strong>${escapeHtml(meta.titulo)}</strong>
+        </span>${meta.descripcion?`<span class='ml-2 text-slate-500'>— ${escapeHtml(meta.descripcion)}</span>`:''}`;
+      } else {
+        META_VIEW.innerHTML = '';
+        META_BKLG.innerHTML = '<span class="text-slate-500">(Sin título ni descripción)</span>';
+      }
+    }
 
-    document.getElementById('exportJSON').addEventListener('click',()=>{const d=JSON.parse(localStorage.getItem(KEY)||'[]');if(!d.length)return alert('Nada que exportar');const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='lineas_tiempo.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),500);});
-    document.getElementById('clearAll').addEventListener('click',()=>{if(confirm('¿Vaciar todas las líneas?')){localStorage.removeItem(KEY);loadLines();renderVisual();}});
+    // ===== Pasos =====
+    function addRow(step){
+      const tr=document.createElement('tr');
+      tr.className='border-b border-slate-200';
+      tr.innerHTML=`<td class='px-3 py-2 font-semibold'>${step.id}</td>
+        <td class='px-3 py-2'>${escapeHtml(step.evento)}</td>
+        <td class='px-3 py-2'>${escapeHtml(step.necesidad||'')}</td>
+        <td class='px-3 py-2'>${step.pensamiento?`💭 ${escapeHtml(step.pensamiento)}`:''}</td>
+        <td class='px-3 py-2'>${escapeHtml(step.emocion||'')}</td>
+        <td class='px-3 py-2 no-print'><button class='text-rose-700 text-xs' data-id='${step.id}'>Eliminar</button></td>`;
+      tbody.appendChild(tr);
+    }
+    function saveStep(step){
+      const d=JSON.parse(localStorage.getItem(KEY_STEPS)||'[]');
+      d.push(step);
+      localStorage.setItem(KEY_STEPS, JSON.stringify(d));
+    }
+    function removeById(id){
+      const d=(JSON.parse(localStorage.getItem(KEY_STEPS)||'[]')).filter(x=>x.id!==id);
+      localStorage.setItem(KEY_STEPS, JSON.stringify(d));
+      loadFromStorage();
+    }
+    function loadFromStorage(){
+      // Compatibilidad con versiones anteriores (tenían array 'necesidades')
+      const d=(JSON.parse(localStorage.getItem(KEY_STEPS)||'[]')).map(x=>{
+        if(!x.necesidad && Array.isArray(x.necesidades) && x.necesidades.length){
+          x.necesidad = x.necesidades[0];
+        }
+        return x;
+      });
+      tbody.innerHTML='';
+      d.forEach(addRow);
+      // Guardamos de vuelta si hubo migración
+      localStorage.setItem(KEY_STEPS, JSON.stringify(d));
+    }
+
+    // Render del visualizador con estructura: Centro (evento), Abajo (necesidad + emoji + 💭 pensamiento)
+    function renderVisual(){
+      const d=JSON.parse(localStorage.getItem(KEY_STEPS)||'[]');
+      if(!d.length){ VIS.innerHTML='<div class="text-sm text-slate-500">Sin pasos para visualizar.</div>'; return; }
+
+      const cards = d.map((s,i)=>{
+        const center = `<div class='text-center'>
+            <div class='flex items-center justify-center gap-2 text-xs text-slate-500'>
+              <span class='inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white font-medium'>${i+1}</span>
+              Hito
+            </div>
+            <h4 class='mt-1 font-semibold'>${escapeHtml(s.evento)}</h4>
+          </div>`;
+        const bottom = (s.necesidad || s.emocion || s.pensamiento) ? `
+          <div class='mt-2 text-center text-sm space-y-1'>
+            ${s.necesidad?`<div><span class='inline-flex items-center gap-1 px-2 py-1 rounded-full border bg-white'>${escapeHtml(s.necesidad)}</span></div>`:''}
+            <div>
+              ${s.emocion?`<span class='text-lg align-middle'>${escapeHtml(s.emocion)}</span>`:''}
+              ${s.pensamiento?`<span class='ml-2 align-middle'>💭 ${escapeHtml(s.pensamiento)}</span>`:''}
+            </div>
+          </div>` : '';
+        return `
+          <div class='flex items-stretch'>
+            <div class='w-72 bg-white border border-slate-200 rounded-xl p-4 shadow-sm'>
+              ${center}
+              ${bottom}
+            </div>
+            ${i<d.length-1?`<div class="mx-2 text-slate-400 self-center">→</div>`:''}
+          </div>`;
+      }).join('');
+
+      VIS.innerHTML = `<div class='min-w-max flex items-center gap-3'>${cards}</div>`;
+    }
+
+    // ===== Eventos (Meta) =====
+    metaForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const meta = { titulo: metaForm.titulo.value.trim(), descripcion: metaForm.descripcion.value.trim() };
+      if(!meta.titulo){ alert('Completa el título'); return; }
+      saveMeta(meta);
+      renderMeta();
+      metaForm.reset();
+    });
+    document.getElementById('clearMeta').addEventListener('click', ()=>{ localStorage.removeItem(KEY_META); renderMeta(); });
+
+    // ===== Eventos (Pasos) =====
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const step={
+        id: nextId(),
+        evento: form.evento.value.trim(),
+        necesidad: form.necesidad.value,
+        pensamiento: form.pensamiento.value.trim(),
+        emocion: form.emocion.value
+      };
+      if(!step.evento){ alert('Completa el Evento/Hito'); return; }
+      saveStep(step); addRow(step); renderVisual(); form.reset();
+    });
+
+    tbody.addEventListener('click', e=>{
+      const id=e.target.getAttribute('data-id');
+      if(id&&confirm('¿Eliminar '+id+'?')){ removeById(id); renderVisual(); }
+    });
+
+    // ===== Import/Export =====
+    document.getElementById('exportJSON').addEventListener('click',()=>{
+      const steps = JSON.parse(localStorage.getItem(KEY_STEPS)||'[]');
+      const meta  = loadMeta();
+      if(!steps.length && !meta) return alert('Nada que exportar');
+      const payload = { meta: meta||{}, steps };
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download='linea_tiempo.json'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),500);
+    });
+
     document.getElementById('importJSON').addEventListener('click',()=>document.getElementById('fileJSON').click());
-    document.getElementById('fileJSON').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const arr=JSON.parse(await f.text());if(!Array.isArray(arr))return alert('El JSON debe ser un arreglo');arr.forEach(x=>{save(x);addRow(x);});renderVisual();}catch(err){alert('Error: '+err.message);}finally{e.target.value='';}});
+    document.getElementById('fileJSON').addEventListener('change',async e=>{
+      const f=e.target.files?.[0]; if(!f) return;
+      try{
+        const data = JSON.parse(await f.text());
+        // Compatibilidad: aceptar objeto {meta,steps} o arreglo simple de pasos.
+        let steps=[]; let meta=null;
+        if(Array.isArray(data)){
+          steps = data;
+        }else if(typeof data === 'object' && data){
+          if(Array.isArray(data.steps)) steps = data.steps; else steps = [];
+          if(data.meta) meta = data.meta;
+        }else{ return alert('Formato no reconocido'); }
+        // Migración: si venían "necesidades" (array), tomar la primera como "necesidad".
+        steps = steps.map(x=>{
+          if(!x.necesidad && Array.isArray(x.necesidades) && x.necesidades.length){ x.necesidad = x.necesidades[0]; }
+          return x;
+        });
+        localStorage.setItem(KEY_STEPS, JSON.stringify(steps));
+        if(meta) localStorage.setItem(KEY_META, JSON.stringify(meta)); else localStorage.removeItem(KEY_META);
+        loadFromStorage(); renderMeta(); renderVisual();
+      }catch(err){ alert('Error: '+err.message); }
+      finally{ e.target.value=''; }
+    });
+
+    document.getElementById('clearAll').addEventListener('click',()=>{
+      if(confirm('¿Vaciar título/descr. y todos los pasos?')){
+        localStorage.removeItem(KEY_META);
+        localStorage.removeItem(KEY_STEPS);
+        renderMeta(); loadFromStorage(); renderVisual();
+      }
+    });
+
     document.getElementById('printBtn').addEventListener('click',()=>window.print());
 
-    loadLines();
+    // ===== Inicio =====
+    renderMeta();
+    loadFromStorage();
     renderVisual();
   </script>
 </body>
