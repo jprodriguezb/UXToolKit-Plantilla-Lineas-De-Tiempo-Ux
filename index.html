@@ -15,10 +15,10 @@
       <h1 class="text-2xl md:text-3xl font-bold tracking-tight">🗓️ Plantilla de Líneas de Tiempo UX</h1>
       <div class="flex gap-2 no-print">
         <input id="fileJSON" type="file" accept="application/json,.json" class="hidden" />
-        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold">Importar JSON</button>
-        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold">Exportar JSON</button>
-        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold">Vaciar</button>
-        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold">Imprimir</button>
+        <button id="importJSON" class="px-3 py-2 rounded-xl bg-amber-600 text-white hover:bg-amber-700 text-sm font-semibold" title="Importa un archivo JSON con líneas de tiempo previamente guardadas">Importar JSON</button>
+        <button id="exportJSON" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-sm font-semibold" title="Exporta tus líneas de tiempo como archivo JSON para compartir o respaldar">Exportar JSON</button>
+        <button id="clearAll" class="px-3 py-2 rounded-xl bg-rose-600 text-white hover:bg-rose-700 text-sm font-semibold" title="Vacía todo el backlog almacenado en el navegador">Vaciar</button>
+        <button id="printBtn" class="px-3 py-2 rounded-xl bg-slate-800 text-white hover:bg-black text-sm font-semibold" title="Imprime o guarda en PDF tu línea de tiempo actual">Imprimir</button>
       </div>
     </div>
   </header>
@@ -32,24 +32,24 @@
         </div>
         <form id="timelineForm" class="p-5 grid md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium mb-1" for="etapa">Etapa</label>
+            <label class="block text-sm font-medium mb-1" for="etapa" title="Desde UX: etapa o momento del recorrido del usuario (antes, durante, después)">Etapa</label>
             <input id="etapa" name="etapa" type="text" required placeholder="Descubrimiento / Uso / Post-servicio" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1" for="actividad">Actividad</label>
+            <label class="block text-sm font-medium mb-1" for="actividad" title="Desde UX: acción observable realizada por la persona en esa etapa">Actividad</label>
             <input id="actividad" name="actividad" type="text" required placeholder="Buscar información / Realizar compra" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500" />
           </div>
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="pensamientos">Pensamientos</label>
+            <label class="block text-sm font-medium mb-1" for="pensamientos" title="Desde UX: pensamientos, dudas o decisiones que experimenta la persona">Pensamientos</label>
             <textarea id="pensamientos" name="pensamientos" rows="2" placeholder="¿Qué está pensando la persona?" class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
           </div>
           <div class="md:col-span-2">
-            <label class="block text-sm font-medium mb-1" for="emociones">Emociones</label>
+            <label class="block text-sm font-medium mb-1" for="emociones" title="Desde UX: emociones principales que influyen en la experiencia">Emociones</label>
             <textarea id="emociones" name="emociones" rows="2" placeholder="Frustración, entusiasmo, duda..." class="w-full rounded-xl border-slate-300 focus:ring-2 focus:ring-indigo-500"></textarea>
           </div>
           <div class="md:col-span-2 flex flex-wrap gap-3 pt-2 no-print">
-            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Agregar etapa</button>
-            <button type="reset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200">Limpiar</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700" title="Agrega la etapa al backlog y al visualizador">Agregar etapa</button>
+            <button type="reset" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200" title="Limpia los campos del formulario">Limpiar</button>
           </div>
         </form>
       </div>
@@ -63,6 +63,23 @@
       </div>
     </section>
 
+    <!-- Tips -->
+    <aside class="space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+        <h3 class="font-semibold text-lg mb-3">📌 Consejos para Líneas de Tiempo UX</h3>
+        <ul class="text-sm list-disc list-inside space-y-1">
+          <li>Usa las líneas de tiempo para representar el orden cronológico de las acciones y emociones.</li>
+          <li>Describe las actividades con verbos claros que reflejen la acción del usuario.</li>
+          <li>Plasma los pensamientos y emociones reales de la persona para identificar puntos de dolor.</li>
+          <li>Recuerda: la línea de tiempo es más simple que un viaje de usuario, concéntrate en lo esencial.</li>
+        </ul>
+      </div>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+        <h3 class="font-semibold text-lg mb-3">💾 Guardado</h3>
+        <p class="text-sm">Las líneas se almacenan en tu navegador (<code>localStorage</code>). Puedes importar o exportar JSON para compartirlas.</p>
+      </div>
+    </aside>
+
     <!-- Tabla -->
     <section>
       <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
@@ -74,12 +91,12 @@
           <table class="w-full text-sm" id="timelineTable">
             <thead class="bg-slate-100">
               <tr>
-                <th class="px-3 py-2 text-left">ID</th>
-                <th class="px-3 py-2 text-left">Etapa</th>
-                <th class="px-3 py-2 text-left">Actividad</th>
-                <th class="px-3 py-2 text-left">Pensamientos</th>
-                <th class="px-3 py-2 text-left">Emociones</th>
-                <th class="px-3 py-2 text-left no-print">Acciones</th>
+                <th class="px-3 py-2 text-left" title="Identificador único de la línea de tiempo">ID</th>
+                <th class="px-3 py-2 text-left" title="Etapa o momento del recorrido">Etapa</th>
+                <th class="px-3 py-2 text-left" title="Actividad observable del usuario">Actividad</th>
+                <th class="px-3 py-2 text-left" title="Pensamientos de la persona en esa etapa">Pensamientos</th>
+                <th class="px-3 py-2 text-left" title="Emociones de la persona en esa etapa">Emociones</th>
+                <th class="px-3 py-2 text-left no-print" title="Acción para eliminar la entrada si es necesario">Acciones</th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
